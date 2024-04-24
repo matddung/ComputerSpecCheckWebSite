@@ -1,5 +1,7 @@
 package com.yjh.MyComputerSpecCheckWebSite.service;
 
+import com.yjh.MyComputerSpecCheckWebSite.dto.getComputerInfo.request.GetComputerInfoRequest;
+import com.yjh.MyComputerSpecCheckWebSite.dto.getComputerInfo.response.GetComputerInfoResponse;
 import com.yjh.MyComputerSpecCheckWebSite.dto.signIn.request.SignInRequest;
 import com.yjh.MyComputerSpecCheckWebSite.dto.signIn.response.SignInResponse;
 import com.yjh.MyComputerSpecCheckWebSite.dto.signUp.request.SignUpRequest;
@@ -47,5 +49,15 @@ public class MemberService {
                         () -> memberRefreshTokenRepository.save(new MemberRefreshToken(member, refreshToken))
                 );
         return new SignInResponse(member.getName(), accessToken, refreshToken);
+    }
+
+    @Transactional
+    public GetComputerInfoResponse updateSpecInfo(GetComputerInfoRequest request) {
+        return memberRepository.findByAccount(request.account())
+                .map(member -> {
+                    member.updateSpec(request);
+                    return GetComputerInfoResponse.of(true, member);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 아이디가 없습니다."));
     }
 }

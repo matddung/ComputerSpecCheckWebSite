@@ -8,5 +8,4 @@ public class MyComputerSpecCheckWebSiteApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyComputerSpecCheckWebSiteApplication.class, args);
 	}
-
 }

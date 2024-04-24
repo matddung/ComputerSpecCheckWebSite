@@ -1,6 +1,7 @@
 package com.yjh.MyComputerSpecCheckWebSite.controller;
 
 import com.yjh.MyComputerSpecCheckWebSite.dto.ApiResponse;
+import com.yjh.MyComputerSpecCheckWebSite.dto.getComputerInfo.request.GetComputerInfoRequest;
 import com.yjh.MyComputerSpecCheckWebSite.dto.signIn.request.SignInRequest;
 import com.yjh.MyComputerSpecCheckWebSite.dto.signUp.request.SignUpRequest;
 import com.yjh.MyComputerSpecCheckWebSite.service.MemberService;
@@ -27,5 +28,10 @@ public class MemberController {
     @PostMapping("/signIn")
     public ApiResponse signIn(@RequestBody SignInRequest request) {
         return ApiResponse.success(memberService.signIn(request));
+    }
+
+    @PostMapping("/member/updateSpec")
+    public ApiResponse updateSpecInfo(@RequestBody GetComputerInfoRequest request) {
+        return ApiResponse.success(memberService.updateSpecInfo(request));
     }
 }
