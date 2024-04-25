@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class DataInitializer implements ApplicationRunner {
+public class TestDataInitializer implements ApplicationRunner {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
 

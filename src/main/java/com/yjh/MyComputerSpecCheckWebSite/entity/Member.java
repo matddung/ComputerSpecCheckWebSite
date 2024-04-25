@@ -1,6 +1,6 @@
 package com.yjh.MyComputerSpecCheckWebSite.entity;
 
-import com.yjh.MyComputerSpecCheckWebSite.dto.getComputerInfo.request.GetComputerInfoRequest;
+import com.yjh.MyComputerSpecCheckWebSite.dto.getMemberComputerInfo.request.GetMemberComputerInfoRequest;
 import com.yjh.MyComputerSpecCheckWebSite.dto.signUp.request.SignUpRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +35,7 @@ public class Member {
                 .build();
     }
 
-    public void updateSpec(GetComputerInfoRequest request) {
+    public void updateSpec(GetMemberComputerInfoRequest request) {
         this.OSInfo = request.OSInfo();
         this.GPUInfo = request.GPUInfo();
         this.CPUInfo = request.CPUInfo();
