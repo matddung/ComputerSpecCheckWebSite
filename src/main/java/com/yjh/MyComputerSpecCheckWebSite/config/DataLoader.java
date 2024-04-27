@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -39,19 +38,36 @@ public class DataLoader implements CommandLineRunner {
         String line;
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
-            List<CPU> existingCPUs = cpuRepository.findByName(data[0]);
-            if (existingCPUs.isEmpty()) {
-                CPU cpu = new CPU();
-                cpu.setName(data[0]);
-                cpu.setPrice(data[1]);
-                cpu.setCoreCount(data[2]);
-                cpu.setCoreClock(data[3]);
-                cpu.setBoostClock(data[4]);
-                cpu.setTDP(data[5]);
-                cpu.setGraphics(data[6]);
-                cpu.setSMT(data[7]);
-                cpuRepository.save(cpu);
+            CPU cpu = new CPU();
+            cpu.setName(data[0]);
+            try {
+                cpu.setPrice(Double.parseDouble(data[1]));
+            } catch (NumberFormatException e) {
+                cpu.setPrice(null);
             }
+            try {
+                cpu.setCoreCount(Double.parseDouble(data[2]));
+            } catch (NumberFormatException e) {
+                cpu.setCoreCount(null);
+            }
+            try {
+                cpu.setCoreClock(Double.parseDouble(data[3]));
+            } catch (NumberFormatException e) {
+                cpu.setCoreClock(null);
+            }
+            try {
+                cpu.setBoostClock(Double.parseDouble(data[4]));
+            } catch (NumberFormatException e) {
+                cpu.setBoostClock(null);
+            }
+            try {
+                cpu.setTDP(Double.parseDouble(data[5]));
+            } catch (NumberFormatException e) {
+                cpu.setTDP(null);
+            }
+            cpu.setGraphics(data[6]);
+            cpu.setSMT(data[7]);
+            cpuRepository.save(cpu);
         }
     }
 
@@ -60,18 +76,35 @@ public class DataLoader implements CommandLineRunner {
         String line;
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
-            List<GPU> existingGPUs = gpuRepository.findByName(data[0]);
-            if (existingGPUs.isEmpty()) {
-                GPU gpu = new GPU();
-                gpu.setName(data[0]);
-                gpu.setPrice(data[1]);
-                gpu.setChipset(data[2]);
-                gpu.setMemory(data[3]);
-                gpu.setCoreClock(data[4]);
-                gpu.setBoostClock(data[5]);
-                gpu.setLength(data[6]);
-                gpuRepository.save(gpu);
+            GPU gpu = new GPU();
+            gpu.setName(data[0]);
+            try {
+                gpu.setPrice(Double.parseDouble(data[1]));
+            } catch (NumberFormatException e) {
+                gpu.setPrice(null);
             }
+            gpu.setChipset(data[2]);
+            try {
+                gpu.setMemory(Double.parseDouble(data[3]));
+            } catch (NumberFormatException e) {
+                gpu.setMemory(null);
+            }
+            try {
+                gpu.setCoreClock(Double.parseDouble(data[4]));
+            } catch (NumberFormatException e) {
+                gpu.setCoreClock(null);
+            }
+            try {
+                gpu.setBoostClock(Double.parseDouble(data[5]));
+            } catch (NumberFormatException e) {
+                gpu.setBoostClock(null);
+            }
+            try {
+                gpu.setLength(Double.parseDouble(data[6]));
+            } catch (NumberFormatException e) {
+                gpu.setLength(null);
+            }
+            gpuRepository.save(gpu);
         }
     }
 
@@ -80,18 +113,34 @@ public class DataLoader implements CommandLineRunner {
         String line;
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
-            List<RAM> existingRAMs = ramRepository.findByName(data[0]);
-            if (existingRAMs.isEmpty()) {
-                RAM ram = new RAM();
-                ram.setName(data[0]);
-                ram.setPrice(data[1]);
-                ram.setSpeed(data[2]);
-                ram.setModules(data[3]);
-                ram.setPricePerGB(data[4]);
-                ram.setFirstWordLatency(data[5]);
-                ram.setCasLatency(data[6]);
-                ramRepository.save(ram);
+            RAM ram = new RAM();
+            ram.setName(data[0]);
+            try {
+                ram.setPrice(Double.parseDouble(data[1]));
+            } catch (NumberFormatException e) {
+                ram.setPrice(null);
             }
+            try {
+                ram.setSpeed(Double.parseDouble(data[2]));
+            } catch (NumberFormatException e) {
+                ram.setSpeed(null);
+            }
+            try {
+                ram.setPricePerGB(Double.parseDouble(data[3]));
+            } catch (NumberFormatException e) {
+                ram.setPricePerGB(null);
+            }
+            try {
+                ram.setFirstWordLatency(Double.parseDouble(data[4]));
+            } catch (NumberFormatException e) {
+                ram.setFirstWordLatency(null);
+            }
+            try {
+                ram.setCasLatency(Double.parseDouble(data[5]));
+            } catch (NumberFormatException e) {
+                ram.setCasLatency(null);
+            }
+            ramRepository.save(ram);
         }
     }
 }

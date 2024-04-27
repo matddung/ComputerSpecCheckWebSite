@@ -15,10 +15,9 @@ public class RAM {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String price;
-    private String speed;
-    private String modules;
-    private String pricePerGB;
-    private String firstWordLatency;
-    private String casLatency;
+    private Double price;
+    private Double speed;
+    private Double pricePerGB;
+    private Double firstWordLatency;
+    private Double casLatency;
 }

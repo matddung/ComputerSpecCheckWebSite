@@ -15,10 +15,10 @@ public class GPU {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String price;
+    private Double price;
     private String chipset;
-    private String memory;
-    private String coreClock;
-    private String boostClock;
-    private String length;
+    private Double memory;
+    private Double coreClock;
+    private Double boostClock;
+    private Double length;
 }
