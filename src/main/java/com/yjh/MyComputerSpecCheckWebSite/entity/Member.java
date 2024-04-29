@@ -22,6 +22,7 @@ public class Member {
     private String account;
     private String password;
     private String name;
+    private MemberType type;
     private String OSInfo;
     private String GPUInfo;
     private String CPUInfo;
@@ -32,6 +33,7 @@ public class Member {
                 .account(request.account())
                 .password(encoder.encode(request.password()))
                 .name(request.name())
+                .type(MemberType.USER)
                 .build();
     }
 
@@ -43,10 +45,11 @@ public class Member {
     }
 
     @Builder
-    private Member(String account, String password, String name, String OSInfo, String GPUInfo, String CPUInfo, String RAMInfo, String diskInfo) {
+    private Member(String account, String password, String name, MemberType type, String OSInfo, String GPUInfo, String CPUInfo, String RAMInfo, String diskInfo) {
         this.account = account;
         this.password = password;
         this.name = name;
+        this.type = type;
         this.OSInfo = OSInfo;
         this.GPUInfo = GPUInfo;
         this.CPUInfo = CPUInfo;
