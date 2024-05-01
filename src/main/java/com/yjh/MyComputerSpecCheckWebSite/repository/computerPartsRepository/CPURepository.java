@@ -1,4 +1,4 @@
-package com.yjh.MyComputerSpecCheckWebSite.repository;
+package com.yjh.MyComputerSpecCheckWebSite.repository.computerPartsRepository;
 
 import com.yjh.MyComputerSpecCheckWebSite.entity.computerParts.CPU;
 import org.springframework.data.jpa.repository.JpaRepository;

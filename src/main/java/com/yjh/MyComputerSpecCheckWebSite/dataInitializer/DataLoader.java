@@ -1,11 +1,13 @@
-package com.yjh.MyComputerSpecCheckWebSite.config;
+package com.yjh.MyComputerSpecCheckWebSite.dataInitializer;
 
+import com.yjh.MyComputerSpecCheckWebSite.entity.GameMinimumRequirements;
 import com.yjh.MyComputerSpecCheckWebSite.entity.computerParts.CPU;
 import com.yjh.MyComputerSpecCheckWebSite.entity.computerParts.GPU;
 import com.yjh.MyComputerSpecCheckWebSite.entity.computerParts.RAM;
-import com.yjh.MyComputerSpecCheckWebSite.repository.CPURepository;
-import com.yjh.MyComputerSpecCheckWebSite.repository.GPURepository;
-import com.yjh.MyComputerSpecCheckWebSite.repository.RAMRepository;
+import com.yjh.MyComputerSpecCheckWebSite.repository.GameMinimumRequirementsRepository;
+import com.yjh.MyComputerSpecCheckWebSite.repository.computerPartsRepository.CPURepository;
+import com.yjh.MyComputerSpecCheckWebSite.repository.computerPartsRepository.GPURepository;
+import com.yjh.MyComputerSpecCheckWebSite.repository.computerPartsRepository.RAMRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
@@ -16,21 +18,21 @@ import java.io.InputStreamReader;
 
 @Component
 public class DataLoader implements CommandLineRunner {
-
     @Autowired
     private CPURepository cpuRepository;
-
     @Autowired
     private GPURepository gpuRepository;
-
     @Autowired
     private RAMRepository ramRepository;
+    @Autowired
+    private GameMinimumRequirementsRepository gameMinimumRequirementsRepository;
 
     @Override
     public void run(String... args) throws Exception {
         loadCPUData();
         loadGPUData();
         loadRAMData();
+        loadGameData();
     }
 
     private void loadCPUData() throws Exception {
@@ -141,6 +143,23 @@ public class DataLoader implements CommandLineRunner {
                 ram.setCasLatency(null);
             }
             ramRepository.save(ram);
+        }
+    }
+
+    private void loadGameData() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(new ClassPathResource("/data/gameMinimumRequirements.csv").getInputStream()));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(",");
+            GameMinimumRequirements game = new GameMinimumRequirements();
+            game.setMemory(data[0]);
+            game.setGPU(data[1]);
+            game.setCPU(data[2]);
+            game.setFileSize(data[3]);
+            game.setSystem(data[4]);
+            game.setName(data[5]);
+
+            gameMinimumRequirementsRepository.save(game);
         }
     }
 }

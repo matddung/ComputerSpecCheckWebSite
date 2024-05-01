@@ -1,12 +1,35 @@
+package com.yjh.MyComputerSpecCheckWebSite.service;
+
+import com.yjh.MyComputerSpecCheckWebSite.dto.gameMinimumRequirements.request.GameMinimumRequirementsRequest;
+import com.yjh.MyComputerSpecCheckWebSite.dto.gameMinimumRequirements.response.GameMinimumRequirementsResponse;
+import com.yjh.MyComputerSpecCheckWebSite.dto.signIn.request.SignInRequest;
+import com.yjh.MyComputerSpecCheckWebSite.dto.signIn.response.SignInResponse;
+import com.yjh.MyComputerSpecCheckWebSite.dto.signUp.request.SignUpRequest;
+import com.yjh.MyComputerSpecCheckWebSite.dto.signUp.response.SignUpResponse;
+import com.yjh.MyComputerSpecCheckWebSite.entity.Member;
+import com.yjh.MyComputerSpecCheckWebSite.entity.MemberRefreshToken;
+import com.yjh.MyComputerSpecCheckWebSite.jwt.TokenProvider;
+import com.yjh.MyComputerSpecCheckWebSite.repository.GameMinimumRequirementsRepository;
+import com.yjh.MyComputerSpecCheckWebSite.repository.MemberRefreshTokenRepository;
+import com.yjh.MyComputerSpecCheckWebSite.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.NoSuchElementException;
+
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class CommonService {
     private final MemberRepository memberRepository;
     private final MemberRefreshTokenRepository memberRefreshTokenRepository;
+    private final GameMinimumRequirementsRepository gameMinimumRequirementsRepository;
     private final TokenProvider tokenProvider;
     private final PasswordEncoder encoder;
 
-    @Transactional
     public SignUpResponse registMember(SignUpRequest request) {
         Member member = memberRepository.save(Member.from(request, encoder));
         try {
@@ -17,7 +40,6 @@ public class CommonService {
         return SignUpResponse.from(member);
     }
 
-    @Transactional
     public SignInResponse signIn(SignInRequest request) {
         Member member = memberRepository.findByAccount(request.account())
                 .filter(it -> encoder.matches(request.password(), it.getPassword()))
@@ -30,5 +52,12 @@ public class CommonService {
                         () -> memberRefreshTokenRepository.save(new MemberRefreshToken(member, refreshToken))
                 );
         return new SignInResponse(member.getName(), accessToken, refreshToken);
+    }
+
+    @Transactional(readOnly = true)
+    public GameMinimumRequirementsResponse getGameSpecFromName(GameMinimumRequirementsRequest request) {
+        return gameMinimumRequirementsRepository.findByName(request.name())
+                .map(GameMinimumRequirementsResponse::from)
+                .orElseThrow(() -> new NoSuchElementException("일치하는 게임이 없습니다."));
     }
 }
