@@ -15,11 +15,10 @@ public class CPU {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double price;
-    private Double coreCount;
-    private Double coreClock;
-    private Double boostClock;
-    private Double TDP;
-    private String graphics;
-    private String SMT;
+    private int tdp;
+    private String date;
+    private String category;
+    private int speed;
+    private int turbo;
+    private int cores;
 }

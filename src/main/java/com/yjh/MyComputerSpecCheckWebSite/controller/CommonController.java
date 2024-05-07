@@ -30,7 +30,7 @@ public class CommonController {
         return ApiResponse.success(commonService.signIn(request));
     }
 
-    @Operation(summary = "이름으로 게임 스펙 불러오기")
+    @Operation(summary = "게임 이름으로 게임 최저 스펙 불러오기")
     @PostMapping("/getGameSpecFromName")
     public ApiResponse getGameSpecFromName(@RequestBody GameMinimumRequirementsRequest request) {
         return ApiResponse.success(commonService.getGameSpecFromName(request));

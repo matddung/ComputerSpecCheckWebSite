@@ -1,5 +1,6 @@
 package com.yjh.MyComputerSpecCheckWebSite;
 
+import com.yjh.MyComputerSpecCheckWebSite.common.MemberType;
 import com.yjh.MyComputerSpecCheckWebSite.entity.Member;
 import com.yjh.MyComputerSpecCheckWebSite.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,18 +21,21 @@ public class TestDataInitializer implements ApplicationRunner {
                 .account("test1")
                 .password(encoder.encode("test1"))
                 .name("test1")
+                .type(MemberType.USER)
                 .build());
 
         memberRepository.save(Member.builder()
                 .account("test2")
                 .password(encoder.encode("test2"))
                 .name("test2")
+                .type(MemberType.USER)
                 .build());
 
         memberRepository.save(Member.builder()
                 .account("test3")
                 .password(encoder.encode("test3"))
                 .name("test3")
+                .type(MemberType.USER)
                 .build());
     }
 }

@@ -1,4 +1,4 @@
-package com.yjh.MyComputerSpecCheckWebSite.dataInitializer;
+package com.yjh.MyComputerSpecCheckWebSite.csvLoader;
 
 import com.yjh.MyComputerSpecCheckWebSite.entity.GameMinimumRequirements;
 import com.yjh.MyComputerSpecCheckWebSite.entity.computerParts.CPU;
@@ -43,32 +43,27 @@ public class DataLoader implements CommandLineRunner {
             CPU cpu = new CPU();
             cpu.setName(data[0]);
             try {
-                cpu.setPrice(Double.parseDouble(data[1]));
+                cpu.setTdp(Integer.parseInt(data[1]));
             } catch (NumberFormatException e) {
-                cpu.setPrice(null);
+                cpu.setTdp(0);
+            }
+            cpu.setDate(data[2]);
+            cpu.setCategory(data[3]);
+            try {
+                cpu.setSpeed(Integer.parseInt(data[4]));
+            } catch (NumberFormatException e) {
+                cpu.setSpeed(0);
             }
             try {
-                cpu.setCoreCount(Double.parseDouble(data[2]));
+                cpu.setTurbo(Integer.parseInt(data[5]));
             } catch (NumberFormatException e) {
-                cpu.setCoreCount(null);
+                cpu.setTurbo(0);
             }
             try {
-                cpu.setCoreClock(Double.parseDouble(data[3]));
+                cpu.setCores(Integer.parseInt(data[6]));
             } catch (NumberFormatException e) {
-                cpu.setCoreClock(null);
+                cpu.setCores(0);
             }
-            try {
-                cpu.setBoostClock(Double.parseDouble(data[4]));
-            } catch (NumberFormatException e) {
-                cpu.setBoostClock(null);
-            }
-            try {
-                cpu.setTDP(Double.parseDouble(data[5]));
-            } catch (NumberFormatException e) {
-                cpu.setTDP(null);
-            }
-            cpu.setGraphics(data[6]);
-            cpu.setSMT(data[7]);
             cpuRepository.save(cpu);
         }
     }
@@ -79,33 +74,49 @@ public class DataLoader implements CommandLineRunner {
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
             GPU gpu = new GPU();
-            gpu.setName(data[0]);
+            gpu.setManufacturer(data[0]);
+            gpu.setName(data[1]);
             try {
-                gpu.setPrice(Double.parseDouble(data[1]));
+                gpu.setReleaseYear(Integer.parseInt(data[2]));
             } catch (NumberFormatException e) {
-                gpu.setPrice(null);
-            }
-            gpu.setChipset(data[2]);
-            try {
-                gpu.setMemory(Double.parseDouble(data[3]));
-            } catch (NumberFormatException e) {
-                gpu.setMemory(null);
+                gpu.setReleaseYear(0);
             }
             try {
-                gpu.setCoreClock(Double.parseDouble(data[4]));
+                gpu.setMemSize(Integer.parseInt(data[3]));
             } catch (NumberFormatException e) {
-                gpu.setCoreClock(null);
+                gpu.setMemSize(0);
             }
             try {
-                gpu.setBoostClock(Double.parseDouble(data[5]));
+                gpu.setMemBusWidth(Integer.parseInt(data[4]));
             } catch (NumberFormatException e) {
-                gpu.setBoostClock(null);
+                gpu.setMemBusWidth(0);
             }
             try {
-                gpu.setLength(Double.parseDouble(data[6]));
+                gpu.setGpuClock(Integer.parseInt(data[5]));
             } catch (NumberFormatException e) {
-                gpu.setLength(null);
+                gpu.setGpuClock(0);
             }
+            try {
+                gpu.setMemClock(Integer.parseInt(data[6]));
+            } catch (NumberFormatException e) {
+                gpu.setMemClock(0);
+            }
+            try {
+                gpu.setUnifiedShader(Integer.parseInt(data[7]));
+            } catch (NumberFormatException e) {
+                gpu.setUnifiedShader(0);
+            }
+            try {
+                gpu.setTmu(Integer.parseInt(data[8]));
+            } catch (NumberFormatException e) {
+                gpu.setTmu(0);
+            }
+            try {
+                gpu.setRop(Integer.parseInt(data[9]));
+            } catch (NumberFormatException e) {
+                gpu.setRop(0);
+            }
+            gpu.setMemType(data[10]);
             gpuRepository.save(gpu);
         }
     }
@@ -117,11 +128,6 @@ public class DataLoader implements CommandLineRunner {
             String[] data = line.split(",");
             RAM ram = new RAM();
             ram.setName(data[0]);
-            try {
-                ram.setPrice(Double.parseDouble(data[1]));
-            } catch (NumberFormatException e) {
-                ram.setPrice(null);
-            }
             try {
                 ram.setSpeed(Double.parseDouble(data[2]));
             } catch (NumberFormatException e) {

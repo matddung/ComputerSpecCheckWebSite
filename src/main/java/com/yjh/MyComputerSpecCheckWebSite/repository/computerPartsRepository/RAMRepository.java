@@ -3,8 +3,8 @@ package com.yjh.MyComputerSpecCheckWebSite.repository.computerPartsRepository;
 import com.yjh.MyComputerSpecCheckWebSite.entity.computerParts.RAM;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface RAMRepository extends JpaRepository<RAM, Long> {
-    List<RAM> findByName(String name);
+    Optional<RAM> findByName(String name);
 }

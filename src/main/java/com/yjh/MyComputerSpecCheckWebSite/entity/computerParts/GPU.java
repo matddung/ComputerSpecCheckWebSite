@@ -14,11 +14,15 @@ public class GPU {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String manufacturer;
     private String name;
-    private Double price;
-    private String chipset;
-    private Double memory;
-    private Double coreClock;
-    private Double boostClock;
-    private Double length;
+    private int releaseYear;
+    private int memSize;
+    private int memBusWidth;
+    private int gpuClock;
+    private int memClock;
+    private int unifiedShader;
+    private int tmu;
+    private int rop;
+    private String memType;
 }
